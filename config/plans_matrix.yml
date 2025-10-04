@@ -1,0 +1,85 @@
+version: 1
+generated_at: 2025-10-04
+notes:
+  - "R = allowed/accessible; N = not allowed."
+  - "Matrix is explicit per acting_role → target_role → plan → feature."
+  - "Features available under each plan are listed in `plans`."
+  - "If a plan does not include a feature, it should remain N (even if an R is mistakenly set)."
+
+features:
+  - Calls
+  - ScreenTime
+  - Location
+
+plans:
+  Free:
+    features: [Calls]
+  Basic:
+    features: [Calls, ScreenTime]
+  Premium:
+    features: [Calls, ScreenTime, Location]
+
+roles:
+  - Parent
+  - Child
+  - Member
+
+# ACCESS MATRIX
+# acting_role:
+#   target_role:
+#     plan:
+#       feature: R|N
+access:
+  Parent:
+    self:
+      Free:     { Calls: R, ScreenTime: N, Location: N }
+      Basic:    { Calls: R, ScreenTime: R, Location: N }
+      Premium:  { Calls: R, ScreenTime: R, Location: R }
+    Parent:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
+    Child:
+      Free:     { Calls: R, ScreenTime: N, Location: N }
+      Basic:    { Calls: R, ScreenTime: R, Location: N }
+      Premium:  { Calls: R, ScreenTime: R, Location: R }
+    Member:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
+
+  Child:
+    self:
+      Free:     { Calls: R, ScreenTime: N, Location: N }
+      Basic:    { Calls: R, ScreenTime: R, Location: N }
+      Premium:  { Calls: R, ScreenTime: R, Location: R }
+    Parent:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
+    Child:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
+    Member:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
+
+  Member:
+    self:
+      Free:     { Calls: R, ScreenTime: N, Location: N }
+      Basic:    { Calls: R, ScreenTime: N, Location: N }
+      Premium:  { Calls: R, ScreenTime: N, Location: N }
+    Parent:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
+    Child:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
+    Member:
+      Free:     { Calls: N, ScreenTime: N, Location: N }
+      Basic:    { Calls: N, ScreenTime: N, Location: N }
+      Premium:  { Calls: N, ScreenTime: N, Location: N }
